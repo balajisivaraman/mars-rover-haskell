@@ -6,29 +6,11 @@ import DataTypes
 import Control.Lens (over, view)
 import Data.Char (digitToInt)
 
-leftOf :: Direction -> Direction
-leftOf North = West
-leftOf South = East
-leftOf East = North
-leftOf West = South
-
-rightOf :: Direction -> Direction
-rightOf North = East
-rightOf South = West
-rightOf East = South
-rightOf West = North
-
 turnLeft :: MarsRover -> MarsRover
 turnLeft = over direction leftOf
 
 turnRight :: MarsRover -> MarsRover
 turnRight = over direction rightOf
-
-forwardOf :: Direction -> MarsRover -> MarsRover
-forwardOf North = over (position . y) (+ 1)
-forwardOf South = over (position . y) (subtract 1)
-forwardOf East  = over (position . x) (+ 1)
-forwardOf West  = over (position . x) (subtract 1)
 
 moveForward :: MarsRover -> MarsRover
 moveForward rover = forwardOf (view direction rover) rover
